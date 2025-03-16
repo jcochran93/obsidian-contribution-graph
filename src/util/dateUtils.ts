@@ -2,7 +2,7 @@ import { DateTime } from "luxon";
 
 export function parseDate(date: string | Date) {
 	if (typeof date === "string") {
-		return new Date(date);
+		return DateTime.fromISO(date).startOf("day").toJSDate();
 	} else {
 		return date;
 	}

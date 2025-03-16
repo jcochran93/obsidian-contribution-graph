@@ -111,7 +111,11 @@ export class MonthTrackGraphRender extends BaseGraphRender {
 
 			// fill hole at start month, if start month date is not 1
 			if (i == 0) {
-				const startDate = new Date(contributionItem.date).getDate();
+				const startDate = new Date(
+					contributionItem.year,
+					contributionItem.month,
+					contributionItem.monthDate,
+				).getDate(); // Is there a reason for this method instead of const startDate = contributionItem.monthDate ?
 				const fillMax = startDate - 1;
 				for (let j = 0; j < fillMax; j++) {
 					const cellEl = document.createElement("div");
