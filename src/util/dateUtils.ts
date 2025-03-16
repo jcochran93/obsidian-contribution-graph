@@ -30,14 +30,14 @@ export function getLastDayOfMonth(year: number, month: number) {
 
 export function distanceBeforeTheStartOfWeek(
 	startOfWeek: number,
-	weekDate: number
+	weekDate: number,
 ) {
 	return (weekDate - startOfWeek + 7) % 7;
 }
 
 export function distanceBeforeTheEndOfWeek(
 	startOfWeek: number,
-	weekDate: number
+	weekDate: number,
 ) {
 	return (startOfWeek - weekDate + 6) % 7;
 }
@@ -77,7 +77,7 @@ export function getLatestMonthAbsoluteFromAndEnd(months: number) {
 	const start = new Date(
 		today.getFullYear(),
 		today.getMonth() - normalizedMonth + 1,
-		1
+		1,
 	);
 	const end = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 	return {

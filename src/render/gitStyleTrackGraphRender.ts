@@ -17,10 +17,10 @@ export class GitStyleTrackGraphRender extends BaseGraphRender {
 	}
 
 	render(root: HTMLElement, graphConfig: ContributionGraphConfig): void {
-		const graphEl = this.createGraphEl(root)
+		const graphEl = this.createGraphEl(root);
 
 		// main
-		const main = this.createMainEl(graphEl, graphConfig)
+		const main = this.createMainEl(graphEl, graphConfig);
 
 		// title
 		if (graphConfig.title && graphConfig.title.trim() != "") {
@@ -34,8 +34,8 @@ export class GitStyleTrackGraphRender extends BaseGraphRender {
 		});
 
 		this.renderCellRuleIndicator(graphConfig, main);
-		const activityContainer= this.renderActivityContainer(graphConfig, main);
-		
+		const activityContainer = this.renderActivityContainer(graphConfig, main);
+
 		// main ->  week day indicator(text cell)
 		const weekTextColumns = createDiv({
 			cls: "column",
@@ -52,7 +52,7 @@ export class GitStyleTrackGraphRender extends BaseGraphRender {
 			const weekDayOfFromDate = from.getDay();
 			const firstHoleCount = distanceBeforeTheStartOfWeek(
 				graphConfig.startOfWeek || 0,
-				weekDayOfFromDate
+				weekDayOfFromDate,
 			);
 			for (let i = 0; i < firstHoleCount; i++) {
 				contributionData.unshift({
@@ -70,7 +70,7 @@ export class GitStyleTrackGraphRender extends BaseGraphRender {
 			contributionData,
 			(item) => `${item.year}-${item.month + 1}`,
 			(item) => item.value,
-			(a, b) => a + b
+			(a, b) => a + b,
 		);
 
 		// main -> charts contributionData
@@ -93,13 +93,11 @@ export class GitStyleTrackGraphRender extends BaseGraphRender {
 					parent: columnEl,
 					text: "",
 				});
-				monthCell.innerText = localizedMonthMapping(
-					contributionItem.month
-				);
+				monthCell.innerText = localizedMonthMapping(contributionItem.month);
 				this.bindMonthTips(
 					monthCell,
 					contributionItem,
-					contributionMapByYearMonth
+					contributionMapByYearMonth,
 				);
 			}
 
@@ -115,20 +113,36 @@ export class GitStyleTrackGraphRender extends BaseGraphRender {
 					this.bindCellAttribute(cellEl, contributionItem);
 				} else {
 					cellEl.className = "cell";
-					this.applyCellGlobalStylePartial(cellEl, graphConfig, ['minWidth', 'minHeight']);
+					this.applyCellGlobalStylePartial(cellEl, graphConfig, [
+						"minWidth",
+						"minHeight",
+					]);
 				}
 			} else {
 				cellEl.className = "cell";
 				this.applyCellGlobalStyle(cellEl, graphConfig);
-				this.applyCellStyleRule(cellEl, contributionItem, cellRules, () => cellRules[0]);
+				this.applyCellStyleRule(
+					cellEl,
+					contributionItem,
+					cellRules,
+					() => cellRules[0],
+				);
 				this.bindCellAttribute(cellEl, contributionItem);
-				this.bindCellClickEvent(cellEl, contributionItem, graphConfig, activityContainer);
+				this.bindCellClickEvent(
+					cellEl,
+					contributionItem,
+					graphConfig,
+					activityContainer,
+				);
 				this.bindCellTips(cellEl, contributionItem);
 			}
 		}
 	}
 
-	renderWeekIndicator(weekdayContainer: HTMLDivElement,graphConfig: ContributionGraphConfig) {
+	renderWeekIndicator(
+		weekdayContainer: HTMLDivElement,
+		graphConfig: ContributionGraphConfig,
+	) {
 		const startOfWeek = graphConfig.startOfWeek || 0;
 		for (let i = 0; i < 7; i++) {
 			const weekdayCell = document.createElement("div");
@@ -139,7 +153,7 @@ export class GitStyleTrackGraphRender extends BaseGraphRender {
 				case 3:
 				case 5:
 					weekdayCell.innerText = localizedWeekDayMapping(
-						(i + startOfWeek || 0) % 7
+						(i + startOfWeek || 0) % 7,
 					);
 					break;
 				default:
